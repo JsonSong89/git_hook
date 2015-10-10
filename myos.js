@@ -32,7 +32,7 @@ if (!program.args.length) {
     if (_.has(cmd, key) && _.isFunction(cmd[key])) {
         cmd[key]();
     } else {
-        console.log('unknown keyword ')
+        console.log('unknown keyword , suggestion: '+ cmdKeys.join("  ") )
     }
 
 
