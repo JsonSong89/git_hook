@@ -1,0 +1,24 @@
+{
+  "name": "gitHook",
+  "version": "0.0.1",
+  "description": " listener  for github webhook ,and then do sth (git pull,build,gulp task and so on ) ",
+  "author": "JsonSong",
+  "dependencies": {
+    "commander": "~2.2.0",
+    "body-parser": "~1.10.2",
+    "express": "~4.11.1",
+    "lodash": "3.10.1"
+  },
+  "devDependencies": {
+    "gulp": "*"
+  },
+  "bin": {
+    "myos": "myos.js"
+  },
+  "scripts": {
+    "start": "node hookapp.js"
+  },
+  "devDependencies": {
+    "gulp": "~3.9.0"
+  }
+}
