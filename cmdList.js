@@ -28,4 +28,4 @@ o.git_pull = function () {
             }
         });
 };
-module.export=o;
+module.exports=o;
