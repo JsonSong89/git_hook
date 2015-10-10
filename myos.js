@@ -24,7 +24,7 @@ program.on('help', function () {
     });
 });
 
-
+var keywords = program.args;
 if (!program.args.length) {
     program.help();
 } else {
