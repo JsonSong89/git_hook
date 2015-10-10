@@ -1,11 +1,14 @@
+'use strict';
+/*global global, require, process, module, baejs*/
+/*jslint node: true */
 /**
  * Created by jsons on 2015/10/10.
  * all command  are here
  */
-'use strict';
-/*global global, require, process, module, baejs*/
-/*jslint node: true */
 
+
+
+var cp = require('child_process');
 var o = {};
 
 o.ss_restart = function () {

@@ -3,7 +3,7 @@
 /*global , require, process, module*/
 
 var program = require('commander');
-var cp = require('child_process');
+
 var _ = require('lodash');
 var cmd = require('./cmdList');
 var cmdKeys = _.mapKeys(cmd, function (value, key) {
