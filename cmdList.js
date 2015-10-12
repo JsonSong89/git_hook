@@ -21,7 +21,7 @@ o.ss_restart = function () {
 };
 
 o.git_pull = function () {
-    cp.exec(' cd /work/bae_node; git pull;npm update;   ',
+    cp.exec(' cd /work/bae_node; git pull;npm update; forever restart server.js;  ',
         function (error, stdout, stderr) {
             if (error !== null) {
                 console.log('exec error: ' + error);
