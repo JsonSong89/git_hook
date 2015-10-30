@@ -17,7 +17,7 @@ program
     .parse(process.argv);
 
 
-//Ìí¼Ó¶îÍâµÄÎÄµµÃèÊö
+//æ·»åŠ é¢å¤–çš„æ–‡æ¡£æè¿°
 program.on('help', function () {
     _.each(cmdKeys, function (key) {
         console.log(key)
