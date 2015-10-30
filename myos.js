@@ -6,10 +6,10 @@ var program = require('commander');
 
 var _ = require('lodash');
 var cmd = require('./cmdList');
-var cmdKeys = _.mapKeys(cmd, function (value, key) {
-    return key;
-});
-
+var cmdKeys = [];
+for(var key in cmd){
+    cmdKeys.push(key)
+}
 
 program
     .version('0.0.1')
@@ -19,6 +19,7 @@ program
 
 //添加额外的文档描述
 program.on('help', function () {
+    console.log("my defined work :");
     _.each(cmdKeys, function (key) {
         console.log(key)
     });
