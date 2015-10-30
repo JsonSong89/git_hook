@@ -18,7 +18,7 @@ program
 
 
 //添加额外的文档描述
-program.on('help', function () {
+program.on('--help', function () {
     console.log("my defined work :");
     _.each(cmdKeys, function (key) {
         console.log(key)
