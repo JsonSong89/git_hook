@@ -18,12 +18,15 @@ router.get('/', function (req, res, next) {
     console.log(req.params);
     res.send(req.params);
 });
-router.post('/baehook', function (req, res, next) {
+router.post('/hook', function (req, res, next) {
     console.log(req.body);
     try {
         var name = req.body.repository.name;
         if (name === "bae_node") {
-            cmd.git_pull()
+            cmd.build_bae()
+        }
+        if (name === "git_hook") {
+            cmd.build_git_hook()
         }
     }
     catch (ex) {

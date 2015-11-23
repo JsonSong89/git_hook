@@ -30,8 +30,11 @@ o.ss_restart = function () {
         });
 };
 
-o.git_pull = function () {
+o.build_bae = function () {
     execCmd(' cd /work/bae_node; git pull;npm update; forever restart app.js;' );
+};
+o.build_git_hook = function () {
+    execCmd(' cd /work/git_hook; git pull;npm install -g; forever restart app.js;' );
 };
 
 o.start_sd = function () {
