@@ -6,10 +6,20 @@
  * all command  are here
  */
 
-
-
 var cp = require('child_process');
 var o = {};
+
+function execCmd(cmdStr){
+    cp.exec( cmdStr,
+        function (error, stdout, stderr) {
+            if (error !== null) {
+                console.log('exec error: ' + error);
+                console.log('exec stderr: ' + stderr);
+            } else {
+                console.log('exec stdout: ' + stdout);
+            }
+        });
+}
 
 o.ss_restart = function () {
     cp.exec('  /etc/init.d/shadowsocks restart    ',
@@ -21,14 +31,11 @@ o.ss_restart = function () {
 };
 
 o.git_pull = function () {
-    cp.exec(' cd /work/bae_node; git pull;npm update; forever restart app.js;  ',
-        function (error, stdout, stderr) {
-            if (error !== null) {
-                console.log('exec error: ' + error);
-                console.log('exec stderr: ' + stderr);
-            } else {
-                console.log('exec stdout: ' + stdout);
-            }
-        });
+    execCmd(' cd /work/bae_node; git pull;npm update; forever restart app.js;' );
 };
+
+o.start_sd = function () {
+    execCmd(' cd /work/scala/activator-dist-1.3.6; ./activator ui ; ' );
+};
+
 module.exports=o;
