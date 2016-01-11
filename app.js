@@ -28,6 +28,9 @@ router.post('/hook', function (req, res, next) {
         if (name === "git_hook") {
             cmd.build_git_hook()
         }
+        //if (name === "HelloScala") {
+        //    cmd.build_spider()
+        //}
     }
     catch (ex) {
     }
