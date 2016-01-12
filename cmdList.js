@@ -44,7 +44,7 @@ o.publish_spider = function () {
 
     var runStr = ' cd /work/scala/spider ; ' +
         ' rm -rf nohup.out    ; ' +
-        ' nohup ./startSpider.sh &';
+        ' nohup ./startSpider.sh & > /work/scala/spider/spring.out &';
 
     console.log("creatJarCmd is : " + creatJarCmd);
     execCmd(creatJarCmd).then(function (cont,stdout) {
