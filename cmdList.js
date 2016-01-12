@@ -45,7 +45,7 @@ o.publish_spider = function () {
         ' nohup ./startSpider.sh & ;' +
         '';
 
-    console.log(creatJarCmd);
+    console.log("creatJarCmd is : "+creatJarCmd);
     execCmd(creatJarCmd);
 };
 
