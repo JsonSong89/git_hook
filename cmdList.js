@@ -7,18 +7,13 @@
  */
 
 var cp = require('child_process');
+var then = require('thenjs');
 var o = {};
 
 function execCmd(cmdStr) {
-    cp.exec(cmdStr,
-        function (error, stdout, stderr) {
-            if (error !== null) {
-                console.log('exec error: ' + error);
-                console.log('exec stderr: ' + stderr);
-            } else {
-                console.log('exec stdout: ' + stdout);
-            }
-        });
+    return then(function (cont) {
+        cp.exec(cmdStr, cont);
+    })
 }
 
 o.ss_restart = function () {
@@ -42,13 +37,23 @@ o.start_sd = function () {
 };
 
 o.build_spider = function () {
+
+    var killOld = "netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1 | xargs kill -9 ";
+
     var creatJarCmd = ' cd /work/HelloScala/ScalaSpider; git pull;  mvn package ;  ' +
         'cp /work/HelloScala/ScalaSpider/target/scala.spider-0.0.1.jar  /work/scala/spider/spider.jar ; ' +
         'cd /work/scala/spider ; ' +
-        "netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1 | xargs kill -9 ;" +
+        'rm -rf nohup.out    ; ' +
         'nohup ./startSpider.sh & ;' +
         '';
-    execCmd(creatJarCmd);
+
+    execCmd(killOld)
+        .then(function (cont) {
+            return execCmd(creatJarCmd);
+        }).then(function (cont) {
+        console.log("publish spider is over!\n")
+    });
+
 };
 
 
