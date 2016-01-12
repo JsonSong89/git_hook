@@ -36,24 +36,32 @@ o.start_sd = function () {
     execCmd(' cd /work/scala/activator-dist-1.3.6; ./activator ui ; ');
 };
 
-o.build_spider = function () {
 
-    var killOld = "netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1 | xargs kill -9 ";
-
-    var creatJarCmd = ' cd /work/HelloScala/ScalaSpider; git pull;  mvn package ;  ' +
-        'cp /work/HelloScala/ScalaSpider/target/scala.spider-0.0.1.jar  /work/scala/spider/spider.jar ; ' +
+o.publish_spider = function () {
+    var creatJarCmd = ' cd /work/HelloScala/ScalaSpider ; git pull;  mvn package ;  ' +
+        '\\cp -f /work/HelloScala/ScalaSpider/target/scala.spider-0.0.1.jar  /work/scala/spider/spider.jar ; ' +
         'cd /work/scala/spider ; ' +
         'rm -rf nohup.out    ; ' +
         'nohup ./startSpider.sh & ;' +
         '';
+    execCmd(creatJarCmd);
+};
 
-    execCmd(killOld)
-        .then(function (cont) {
-            return execCmd(creatJarCmd);
-        }).then(function (cont) {
-        console.log("publish spider is over!\n")
-    });
+o.build_spider = function () {
 
+    var killOld = "netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1 | xargs kill -9 ";
+
+    return then(function (cont) {
+        cp.exec(killOld,
+            function (error, stdout, stderr) {
+                if (error !== null) {
+                    console.log('exec error: ' + error);
+                }
+                cont()
+            });
+    }).then(function (cont) {
+        o.publish_spider()
+    })
 };
 
 
