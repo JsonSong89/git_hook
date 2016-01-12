@@ -57,8 +57,8 @@ o.build_spider = function () {
     return then(function (cont) {
         cp.exec(getPid,
             function (error, stdout, stderr) {
-                if (stdout) {
-                    console.log('exec error: ' + error);
+                if (!stdout) {
+                    console.log('spider nohup task is not running ');
                     return cont()
                 }else{
                     execCmd("kill -9 "+stdout,cont)
