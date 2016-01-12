@@ -11,9 +11,9 @@ var _ = require('lodash');
 var then = require('thenjs');
 var o = {};
 
-function execCmd(cmdStr) {
-    return then(function (cont) {
-        cp.exec(cmdStr, cont);
+function execCmd(cmdStr, cont) {
+    return then(function (_cont) {
+        cp.exec(cmdStr, cont || _cont);
     })
 }
 
@@ -40,34 +40,35 @@ o.start_sd = function () {
 
 o.publish_spider = function () {
     var creatJarCmd = ' cd /work/HelloScala/ScalaSpider ; git pull;  mvn package ;  ' +
-        '\\cp -f /work/HelloScala/ScalaSpider/target/scala.spider-0.0.1.jar  /work/scala/spider/spider.jar ; ' +
-        ' cd /work/scala/spider ; ' +
-        ' rm -rf nohup.out    ; ' +
-        ' nohup ./startSpider.sh &' +
-        '';
+        '\\cp -f /work/HelloScala/ScalaSpider/target/scala.spider-0.0.1.jar  /work/scala/spider/spider.jar ; ';
 
-    console.log("creatJarCmd is : "+creatJarCmd);
-    execCmd(creatJarCmd).then(function(cont){
-        console.log("publish is over ")
+    var runStr = ' cd /work/scala/spider ; ' +
+        ' rm -rf nohup.out    ; ' +
+        ' nohup ./startSpider.sh &';
+
+    console.log("creatJarCmd is : " + creatJarCmd);
+    execCmd(creatJarCmd).then(function (cont,stdout) {
+        console.log("package is over \n " +stdout);
+        return execCmd(runStr,cont)
+    }).then(function(cont,stdout){
+        console.log("publish is over \n "+stdout);
     });
 };
 
 o.build_spider = function () {
 
-    var  getPid = "netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1  ";
-   // var killOld = "netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1 | xargs kill -9 ";
+    var getPid = "netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1  ";
+    // var killOld = "netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1 | xargs kill -9 ";
 
     return then(function (cont) {
         cp.exec(getPid,
             function (error, stdout, stderr) {
-                var out =  _.trim(stdout);
-                if (!out || out=="\n" ) {
+                var out = _.trim(stdout);
+                if (!out || out == "\n") {
                     console.log('spider nohup task is not running ');
                     return cont()
-                }else{
-                    return  execCmd("kill -9 "+out).then(function(_cont){
-                        return cont()
-                    })
+                } else {
+                    return execCmd("kill -9 " + out, cont)
                 }
             });
     }).then(function (cont) {
