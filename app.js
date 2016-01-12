@@ -29,7 +29,7 @@ router.post('/hook', function (req, res, next) {
             cmd.build_git_hook()
         }
         if (name === "HelloScala") {
-            var message = req.body.message;
+            var message = req.body.head_commit.message;
             console.log( "message is :"+message );
             if (_.includes(message,"spider.publish")){
                 cmd.build_spider()
