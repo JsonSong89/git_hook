@@ -42,9 +42,14 @@ o.start_sd = function () {
 };
 
 o.build_spider = function () {
-    execCmd(' cd /work/HelloScala/ScalaSpider; mvn package ;  ' +
-        'cp /work/HelloScala/ScalaSpider/target/scala.spider-0.0.1.jar  /work/scala/spider/spider.jar '
-    );
+    var creatJarCmd = ' cd /work/HelloScala/ScalaSpider; git pull;  mvn package ;  ' +
+        'cp /work/HelloScala/ScalaSpider/target/scala.spider-0.0.1.jar  /work/scala/spider/spider.jar ; ' +
+        'cd /work/scala/spider ; ' +
+        "netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1 | xargs kill -9 ;" +
+        'nohup ./startSpider.sh & ;' +
+        '';
+    execCmd(creatJarCmd);
 };
+
 
 module.exports = o;
