@@ -49,15 +49,18 @@ o.publish_spider = function () {
 
 o.build_spider = function () {
 
-    var killOld = "netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1 | xargs kill -9 ";
+    var  getPid = "netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1  ";
+   // var killOld = "netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1 | xargs kill -9 ";
 
     return then(function (cont) {
-        cp.exec(killOld,
+        cp.exec(getPid,
             function (error, stdout, stderr) {
-                if (error !== null) {
+                if (stdout) {
                     console.log('exec error: ' + error);
+                    return cont()
+                }else{
+                    execCmd("kill -9 "+stdout,cont)
                 }
-                cont()
             });
     }).then(function (cont) {
         o.publish_spider()
