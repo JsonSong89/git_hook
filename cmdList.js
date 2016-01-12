@@ -40,10 +40,12 @@ o.start_sd = function () {
 o.publish_spider = function () {
     var creatJarCmd = ' cd /work/HelloScala/ScalaSpider ; git pull;  mvn package ;  ' +
         '\\cp -f /work/HelloScala/ScalaSpider/target/scala.spider-0.0.1.jar  /work/scala/spider/spider.jar ; ' +
-        'cd /work/scala/spider ; ' +
-        'rm -rf nohup.out    ; ' +
-        'nohup ./startSpider.sh & ;' +
+        ' cd /work/scala/spider ; ' +
+        ' rm -rf nohup.out    ; ' +
+        ' nohup ./startSpider.sh & ;' +
         '';
+
+    console.log(creatJarCmd);
     execCmd(creatJarCmd);
 };
 
