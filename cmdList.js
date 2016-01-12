@@ -47,7 +47,9 @@ o.publish_spider = function () {
         '';
 
     console.log("creatJarCmd is : "+creatJarCmd);
-    execCmd(creatJarCmd);
+    execCmd(creatJarCmd).then(function(cont){
+        console.log("publish is over ")
+    });
 };
 
 o.build_spider = function () {
@@ -58,11 +60,14 @@ o.build_spider = function () {
     return then(function (cont) {
         cp.exec(getPid,
             function (error, stdout, stderr) {
-                if (!stdout || stdout=="\n" || _.trim(stdout)=="") {
+                var out =  _.trim(stdout);
+                if (!out || out=="\n" ) {
                     console.log('spider nohup task is not running ');
                     return cont()
                 }else{
-                    execCmd("kill -9 "+stdout,cont)
+                    return  execCmd("kill -9 "+out).then(function(_cont){
+                        return cont()
+                    })
                 }
             });
     }).then(function (cont) {
