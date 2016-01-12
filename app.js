@@ -28,9 +28,14 @@ router.post('/hook', function (req, res, next) {
         if (name === "git_hook") {
             cmd.build_git_hook()
         }
-        //if (name === "HelloScala") {
-        //    cmd.build_spider()
-        //}
+        if (name === "HelloScala") {
+            var message = req.body.message;
+            if (_.includes(message,"spider.publish")){
+                cmd.build_spider()
+            }else{
+                console.log(new Date()+"little commit and no publish")
+            }
+        }
     }
     catch (ex) {
     }
