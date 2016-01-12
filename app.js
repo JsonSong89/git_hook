@@ -30,6 +30,7 @@ router.post('/hook', function (req, res, next) {
         }
         if (name === "HelloScala") {
             var message = req.body.message;
+            console.log( "message is :"+message );
             if (_.includes(message,"spider.publish")){
                 cmd.build_spider()
             }else{
