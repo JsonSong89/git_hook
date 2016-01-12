@@ -7,6 +7,7 @@
  */
 
 var cp = require('child_process');
+var _ = require('lodash');
 var then = require('thenjs');
 var o = {};
 
@@ -42,7 +43,7 @@ o.publish_spider = function () {
         '\\cp -f /work/HelloScala/ScalaSpider/target/scala.spider-0.0.1.jar  /work/scala/spider/spider.jar ; ' +
         ' cd /work/scala/spider ; ' +
         ' rm -rf nohup.out    ; ' +
-        ' nohup ./startSpider.sh ;' +
+        ' nohup ./startSpider.sh &' +
         '';
 
     console.log("creatJarCmd is : "+creatJarCmd);
@@ -57,7 +58,7 @@ o.build_spider = function () {
     return then(function (cont) {
         cp.exec(getPid,
             function (error, stdout, stderr) {
-                if (!stdout) {
+                if (!stdout || stdout=="\n" || _.trim(stdout)=="") {
                     console.log('spider nohup task is not running ');
                     return cont()
                 }else{
