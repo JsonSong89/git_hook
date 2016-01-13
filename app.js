@@ -10,6 +10,9 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cmd = require('./cmdList');
 var app = express();
+var _ = require('lodash');
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
