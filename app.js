@@ -39,6 +39,7 @@ router.post('/hook', function (req, res, next) {
         }
     }
     catch (ex) {
+        console.log(ex);
     }
     res.send(req.body);
 });
