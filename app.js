@@ -31,6 +31,9 @@ router.post('/hook', function (req, res, next) {
         if (name === "git_hook") {
             cmd.build_git_hook()
         }
+        if (name === "SpiderShow") {
+            cmd.build_show()
+        }
         if (name === "HelloScala") {
             var message = req.body.head_commit.message;
             console.log( "message is :"+message );

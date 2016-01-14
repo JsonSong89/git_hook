@@ -38,6 +38,12 @@ o.build_git_hook = function () {
             console.log("build is over \n " + stdout);
         });
 };
+o.build_show = function () {
+    execCmd(' cd /work/spider/SpiderShow; git pull;npm update;npm install -g; forever restart app.js;')
+        .then(function (cont, stdout) {
+            console.log("build is over \n " + stdout);
+        });
+};
 
 o.start_sd = function () {
     execCmd(' cd /work/scala/activator-dist-1.3.6; ./activator ui ; ');
