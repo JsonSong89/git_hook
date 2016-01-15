@@ -39,7 +39,15 @@ o.build_git_hook = function () {
         });
 };
 o.build_show = function () {
-    execCmd(' cd /work/spider/SpiderShow; git pull;npm update;npm install -g; forever restart app.js;')
+    var cmdStr = [" cd /work/spider/SpiderShow;",
+        "git pull;npm install;",
+        " npm run build;",
+        "\\cp -f  -r   /work/spider/SpiderShow/dist  /work/bae_node/public/spider ; ",
+        "\\cp -f /work/spider/SpiderShow/index.html  /work/bae_node/public/spider/index.html ; "
+    ].join("\n");
+
+
+    execCmd(cmdStr)
         .then(function (cont, stdout) {
             console.log("build is over \n " + stdout);
         });
