@@ -8,14 +8,12 @@
 
 var cp = require('child_process');
 var _ = require('lodash');
+
 var then = require('thenjs');
 var o = {};
 
-function execCmd(cmdStr, cont) {
-    return then(function (_cont) {
-        cp.exec(cmdStr, cont || _cont);
-    })
-}
+let execCmd = require('./util').execCmd
+
 
 o.ss_restart = function () {
     cp.exec('  /etc/init.d/shadowsocks restart    ',

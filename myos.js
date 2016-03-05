@@ -6,12 +6,13 @@ var program = require('commander');
 
 var _ = require('lodash');
 var cmd = require('./cmdList');
-var cmdKeys = [];
-for(var key in cmd){
-    cmdKeys.push(key)
-}
+var cmdKeys = Object.keys(cmd);
+let setOption   = require("./option").setOption;
 
-program
+
+
+
+    setOption(program)
     .version('0.0.1')
     .usage('[options] <keywords>')
     .parse(process.argv);
