@@ -25,13 +25,13 @@ o.ss_restart = function () {
 };
 
 o.build_bae = function () {
-    execCmd(' cd /work/bae_node; git pull;npm update; forever restart app.js;')
+    execCmd(' cd /work/bae_node; git pull;npm update; pm2 restart app.js;')
         .then(function (cont, stdout) {
             console.log("build is over \n " + stdout);
         });
 };
 o.build_git_hook = function () {
-    execCmd(' cd /work/git_hook; git pull;npm update;npm install -g; forever restart app.js;')
+    execCmd(' cd /work/git_hook; git pull;npm update;npm install -g; pm2 restart app.js;')
         .then(function (cont, stdout) {
             console.log("build is over \n " + stdout);
         });
