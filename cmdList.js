@@ -57,12 +57,13 @@ o.start_sd = function () {
 
 
 o.publish_spider = function () {
-    var creatJarCmd = ' cd /work/HelloScala/ScalaSpider ; git pull;  mvn package ;  ' +
-        '\\cp -f /work/HelloScala/ScalaSpider/target/scala.spider-0.0.1.jar  /work/scala/spider/spider.jar ; ';
+    var creatJarCmd = ' cd /work/HelloKotlin ; git pull; cd /work/HelloKotlin/kotlin-spider; mvn package ;  ' ;
+        '\\cp -f /work/HelloKotlin/kotlin-spider/target/kotlin.spider-*.jar  /work/spider/spider.jar ; ';
 
-    var runStr = ' cd /work/scala/spider ; ' +
-        ' rm -rf /work/scala/spider/spring.out   ; ' +
-        ' nohup ./startSpider.sh & > /work/scala/spider/spring.out &';
+    var runStr = ' cd /work/spider ; ' +
+        ' rm -rf /work/spider/spring.out   ; ' +
+        ' nohup ./startSpider.sh & > /work/spider/spring.out &';
+//java -jar spider.jar
 
     console.log("creatJarCmd is : " + creatJarCmd);
     execCmd(creatJarCmd).then(function (cont, stdout) {
