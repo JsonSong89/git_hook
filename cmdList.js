@@ -24,7 +24,7 @@ o.ss_restart = function () {
         });
 };
 
-o.build_bae = function () {
+o.build_bae1 = function () {
     execCmd(' cd /work/bae_node; git pull;npm update; pm2 restart app.js;')
         .then(function (cont, stdout) {
             console.log("build is over \n " + stdout);
