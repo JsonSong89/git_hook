@@ -2,9 +2,11 @@
 'use strict';
 /*global , require, process, module*/
 
+var cp = require('child_process');
+var Thenjs = require('thenjs');
 
 function execCmd(cmdStr, cont) {
-    return then(function (_cont) {
+    return Thenjs(function (_cont) {
         cp.exec(cmdStr, cont || _cont);
     })
 }
@@ -12,4 +14,8 @@ function execCmd(cmdStr, cont) {
 var log = console.log.bind(console);
 
 
-module.exports = {execCmd,log};
+module.exports = {
+    execCmd,
+    log,
+    root:__dirname
+};
